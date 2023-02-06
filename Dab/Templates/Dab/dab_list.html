@@ -1,0 +1,64 @@
+{% extends "Template/baseAdmin.html" %}
+
+{% block content %}
+<h3 class=""><i class="fa fa-usd"></i> Distributeur</h3>
+<hr class="my-4">
+<table class="table table-borderless">
+	{% if prenom == "admin" %}
+		<a href="{% url 'dab_insert' %}" class="btn btn-outline-secondary">
+			<i class="fa fa-plus"></i> Ajouter
+		</a>
+	{% endif %}
+	{% for dabs in dab_list %}
+
+	{% if forloop.first %}
+	<div class="table-responsive m-b-40">
+		<table class="table table-borderless table-data3">
+			<thead>
+				<tr>
+					<th>Numéro</th>
+					<th>Lieu</th>
+					<th>Nombre 20 000Ar</th>
+					<th>Nombre 10 000Ar</th>
+					<th>Nombre &nbsp;5 000Ar</th>
+					<th>Agence</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			{% endif %}
+			<tbody>
+
+				<tr>
+					<td>{{ dabs.numero_Dab }}</td>
+					<td>{{ dabs.lieu }}</td>
+					<td>{{ dabs.nombre_Billet_20000 }}</td>
+					<td>{{ dabs.nombre_Billet_10000 }}</td>
+					<td>{{ dabs.nombre_Billet_5000 }}</td>
+					<td>{{ dabs.id_Agence }}</td>
+						<td>
+							{% if prenom != "admin" %}
+								<a href="{% url 'dab_update' dabs.id %}" class="btn text-secondary px-0">
+									<i class="fa fa-plus fa-lg"></i>
+								</a>
+							{% endif %}
+
+							{% if prenom == "admin" %}
+								<a href="{% url 'dab_edit' dabs.id %}" class="btn text-secondary px-0">
+									<i class="far fa-edit fa-lg"></i>
+								</a>
+								<form action="{% url 'dab_delete' dabs.id %}" method="post" class="d-inline">
+									{% csrf_token %}
+									<button type="submit" class="btn btn">
+										<i class="fa fa-trash-alt text-danger"></i>
+									</button>
+								</form>
+							{% endif %}
+						</td>
+				</tr>
+				{% empty%}
+				<p>tableau vide</p>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+	{% endblock content %}

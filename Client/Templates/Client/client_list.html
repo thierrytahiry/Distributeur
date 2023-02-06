@@ -1,0 +1,60 @@
+{% extends "Template/baseAdmin.html" %}
+
+{% block content %}
+<h3 class=""><i class="fa fa-list-ul"></i> Client</h3>
+<hr class="my-4">
+<table class="table table-borderless">
+	{% if prenom == "admin" %}
+		<a href="{% url 'client_insert' %}" class="btn btn-outline-secondary">
+			<i class="fa fa-plus"></i> Ajouter
+		</a>
+	{% endif %}
+	{% for clients in client_list %}
+
+	{% if forloop.first %}
+	<div class="table-responsive m-b-40">
+		<table class="table table-borderless table-data3 text-center">
+			<thead>
+				<tr>
+					<th>Nom</th>
+					<th>Prenom</th>
+					<th>Numéro phone</th>
+					<th>CIN</th>
+					<th>Adresse</th>
+					<th>date de naissace</th>
+					{% if prenom == "admin" %}
+						<th>Action</th>
+					{% endif %}
+				</tr>
+			</thead>
+			{% endif %}
+			<tbody>
+
+				<tr>
+					<td>{{ clients.nom }}</td>
+					<td>{{ clients.prenom }}</td>
+					<td>{{ clients.telephone }}</td>
+					<td>{{ clients.CIN }}</td>
+					<td>{{ clients.adresse }}</td>
+					<td>{{ clients.dateNaissance }}</td>
+					{% if prenom == "admin" %}
+						<td>
+							<a href="{% url 'client_update' clients.id %}" class="btn text-secondary px-0">
+								<i class="far fa-edit fa-lg"></i>
+							</a>
+							<form action="{% url 'client_delete' clients.id %}" method="post" class="d-inline">
+								{% csrf_token %}
+								<button type="submit" class="btn btn">
+									<i class="fa fa-trash-alt text-danger"></i>
+								</button>
+							</form>
+						</td>
+					{% endif %}
+				</tr>
+				{% empty%}
+				<p>tableau vide</p>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+	{% endblock content %}

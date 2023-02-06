@@ -1,0 +1,64 @@
+{% extends "Template/baseAdmin.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<h3 class=""><i class="fa fa-credit-card"></i> Carte</h3>
+<hr class="my-4">
+<div class="col-lg-12">
+	<div class="card">
+		<div class="card-header">
+			<a href="{% url 'carte_list' %}"><i class="fa fa-arrow-circle-left text-danger"></i></a>
+		</div>
+		<div class="card-body">
+			<form action="" method="post" autocomplete="off">
+				{% if messages %}
+					{% for mess in messages %}
+						<input type="hidden" name="mess" id="mess" value="{{ mess }}">
+					{% endfor %}
+				{% endif %}
+				{% csrf_token %}
+				<div class="row">
+					<div class="col-md-6">
+						{{form.numero_Carte|as_crispy_field}}
+					</div>
+					<div class="col-md-6">
+						{{form.id_Type|as_crispy_field}}
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						{{form.etat_Carte|as_crispy_field}}
+					</div>
+					<div class="col-md-6">
+						{{form.id_Compte|as_crispy_field}}
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						{{form.code_Nip|as_crispy_field}}
+					</div>
+					<div class="col-md-6">
+						<label for="" id="confirmer">Confirmer NIP</label>
+						<input class="form-control" id="nip2" name="nip2" type="password">
+					</div>
+				</div>
+
+				<div class="form-actions form-group">
+					<button type="submit" class="btn btn-success btn-sm">Valider</button>
+					<button type="reset" class="btn btn-danger btn-sm">Annuler</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+{% endblock content %}
+{% block javaScript %}
+<script type="text/javascript">
+	$(document).ready(function(){
+		if($("#mess").val() == "mess")
+		{
+			$('#confirmer').attr("style","color : red;");
+		}
+	});
+</script>
+{% endblock javaScript %}

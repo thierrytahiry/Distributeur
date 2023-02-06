@@ -1,0 +1,72 @@
+
+{% extends "Template/base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block content %}
+<center>
+<div class="col-lg-12">
+	<!-- TOP CAMPAIGN-->
+	<div class="top-campaign borderRed text-center">
+		<div class="row form-group">
+			<div class="col col-sm-12">
+				<img src="{% static 'styles/images/icon/distributeur.jpg' %}" alt="CEM2" />
+				<hr>
+			</div>
+			<!-- <div class="col col-sm-1 ml-auto">
+				<a href="{% url 'login' %}"><i class="fa fa-arrow-circle-left text-danger"></i></a>
+			</div> -->
+		</div>
+		<div class="table-responsive">
+			<table class="table table-borderless table-data3">
+				{% for distributeur in distributeurs %}
+				{% if forloop.first %}
+				<thead>
+					<tr>
+						<th>NUMERO</th>
+						<th>LIEU</th>
+						<th id="clignot">INSERER UNE CARTE</th>
+						<th>ANNULLER</th>
+					</tr>
+				</thead>
+				{% endif %}
+				<tbody>
+					<tr>
+						<td>{{ distributeur.numero_Dab }}</td>
+						<td>{{ distributeur.lieu }}</td>
+						<td>
+							<form action="" method="post" class="d-inline">
+								{% csrf_token %}
+								<input type="hidden" name="idDab" value="{{ distributeur.id }}">
+								<button type="submit" class="btn btn">
+									<i class="fa fa-credit-card text-secondary"></i>
+								</button>
+							</form>
+						</td>
+						<td>
+							<a href="{% url 'login' %}"><i class="fa fa-arrow-circle-left text-danger"></i></a>
+						</td>
+					</tr>
+					{% empty%}
+					<p>tableau vide</p>
+				</tbody>
+				{% endfor %}
+			</table>
+		</div>
+		
+	</div>
+	<!--  END TOP CAMPAIGN-->
+</div>
+</center>	
+{% endblock content %}
+
+{% block javaScript %}
+	<script type="text/javascript">
+		
+		$(document).ready(function(){
+			setInterval(function() {
+				$('#clignot').fadeOut(100).fadeIn(100);
+			},500);
+		});
+	</script>
+{% endblock javaScript %}

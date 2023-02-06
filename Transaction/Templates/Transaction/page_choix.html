@@ -1,0 +1,337 @@
+
+{% extends "Template/base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block content %}
+<form action="" method="post" novalidate="novalidate">
+	<div class="row">
+		<div class="col-lg-7">
+			<div class="card borderRed">
+				<div class="card-body">
+					<div class="card-title">
+						<img src="{% static 'styles/images/icon/CEM.jpg' %}" alt="CEM2" />
+						<hr>
+					</div>
+					<br>
+					<br>
+					{% csrf_token %}
+					<div class="row">
+						<div class="col-1">
+							<div class="row">
+								<div class="col-2">
+									<div class="form-group">	
+										<a href="{% url 'page_retirer' %}">
+											<button type="button" class="btn btn-outline-secondary redB">
+												<i class="fa fa-chevron-right"></i>
+											</button>
+										</a>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-2">
+									<div class="form-group">
+										<a href="{% url 'page_solde' %}">
+											<button type="button" class="btn btn-outline-secondary redB">
+												<i class="fa fa-chevron-right"></i>
+											</button>
+										</a>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-2">
+									<div class="form-group">			
+										<a href="{% url 'page_depot' %}">
+											<button type="button" class="btn btn-outline-secondary redB">
+												<i class="fa fa-chevron-right"></i>
+											</button>
+										</a>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-2">
+									<div class="form-group">
+										<a href="{% url 'page_relever' %}">		
+											<button type="button" class="btn btn-outline-secondary redB">
+												<i class="fa fa-chevron-right"></i>
+											</button>
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+
+
+						<div class="col-10">
+							<div class="row">
+								<div class="col-md-5">
+									<div class="form-group">		
+										<center>
+											<p class="form-control cc-exp redP">Retrait d'argent</p>
+										</center>
+									</div>
+								</div>
+								<div class="col-md-5 ml-auto">
+									<div class="form-group">
+										<small>
+											<h5 id="clignot">
+												<center style="color: red;">
+													{% if messages %}
+														{% for mess in messages %}
+															{{ mess }} !
+														{% endfor %}
+													{% endif %}
+												
+												</center>
+											</h5>
+										</small>		
+									</div>
+								</div>
+							</div>
+							<div class="row" >
+								<div class="col-md-5">
+									<div class="form-group">		
+										<center>
+											<p class="form-control cc-exp redP">Consultation de solde</p>
+										</center>
+									</div>
+								</div>
+								<div class="col-md-5 ml-auto">
+									<div class="form-group">		
+
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-5">
+									<div class="form-group">
+										<center>
+											<p class="form-control cc-exp redP">Dépôt d'argent</p>
+										</center>		
+									</div>
+								</div>
+								<div class="col-md-5 ml-auto">
+									<div class="form-group">
+									
+									</div>
+								</div>
+							</div>
+							<div class="row" >
+								<div class="col-md-5">
+									<div class="form-group">		
+										<center>
+											<p class="form-control cc-exp redP">Mini relevé</p>
+										</center>
+									</div>
+								</div>
+								<div class="col-md-5 ml-auto">
+									<div class="form-group">		
+										<center>
+											<p class="form-control cc-exp redP">Annuler</p>
+										</center>
+									</div>
+								</div>
+							</div>
+						</div>
+
+
+						<div class="col-1">
+							<div class="row">
+								<div class="col-2">
+									<div class="form-group">	
+										<button type="button" class="btn btn-outline-secondary redB">
+											<i class="fa fa-chevron-left"></i>
+										</button>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-2">
+									<div class="form-group">
+										<button type="button" class="btn btn-outline-secondary redB">
+											<i class="fa fa-chevron-left"></i>
+										</button>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-2">
+									<div class="form-group">			
+										<button type="button" class="btn btn-outline-secondary redB">
+											<i class="fa fa-chevron-left"></i>
+										</button>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-2">
+									<div class="form-group">		
+										<a href="{% url 'num_carte' %}">
+											<button type="button" class="btn btn-outline-secondary redB">
+												<i class="fa fa-chevron-left"></i>
+											</button>
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-5" >
+			<div class="card borderRed">
+				<div class="card-body">
+					<div class="card-title">
+						<img src="{% static 'styles/images/icon/acceuil.jpg' %}" alt="CEM2" />
+					</div>
+					<hr style="height: 15px;">
+
+					<div class="row">
+						<div class="col-4">
+							<div class="form-group">
+								<button id="recus" name="x_card_code" type="button" class="form-control btn btn-outline-secondary" value="Reçus">&nbsp;Reçus &nbsp; <i class="fa fa-files-o"></i> &nbsp; &nbsp; &nbsp;</button>
+							</div>
+						</div>
+
+						<div class="col-4">
+							<div class="form-group">
+								<button id="billet" name="x_card_code" type="button" class="form-control btn btn-outline-secondary" value="Billets">&nbsp;Billets &nbsp; <i class="fa fa-usd"></i> &nbsp; &nbsp; &nbsp;</button>
+							</div>
+						</div>
+						<div class="col-4">
+							<div class="input-group">
+								<button id="carte" name="x_card_code" type="button" class="form-control btn btn-outline-secondary" value="Carte">&nbsp;Carte &nbsp;<i class="fa fa-credit-card"></i>&nbsp; &nbsp; &nbsp;</button>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-2">
+							<div class="form-group">
+								<input id="un" name="cc-exp" type="button" class="form-control boutton btn btn-outline-secondary" value="1">
+							</div>
+						</div>
+
+						<div class="col-2">
+							<div class="form-group">	
+								<input id="deux" name="cc-exp" type="button" class="form-control boutton btn btn-outline-secondary" value="2">
+							</div>
+						</div>
+						<div class="col-2">	
+							<div class="input-group">
+								<input id="trois" name="x_card_code" type="button" class="form-control boutton btn btn-outline-secondary" value="3">
+							</div>
+						</div>
+						<div class="col-4">
+							<div class="input-group">
+								<a href="{% url 'index' %}">
+									<button type="button" id="annulation" class="form-control btn btn-outline-danger">
+										Annulation <i class="fa fa-times"></i>
+									</button>
+								</a>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-2">
+							<div class="form-group">	
+								<input id="quatre" name="cc-exp" type="button" class="form-control boutton btn btn-outline-secondary" value="4">
+							</div>
+						</div>
+
+						<div class="col-2">
+							<div class="form-group">
+								<input id="cinq" name="cc-exp" type="button" class="form-control boutton btn btn-outline-secondary" value="5">
+							</div>
+						</div>
+						<div class="col-2">
+
+							<div class="input-group">
+								<input id="six" name="x_card_code" type="button" class="form-control boutton btn btn-outline-secondary" value="6">
+
+							</div>
+						</div>
+						<div class="col-4">
+							<div class="input-group">
+								<button id="correction" name="correction" type="button" class="form-control btn btn-outline-warning">Correction  <i class="fa fa-eraser"></i></button>
+
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-2">
+							<div class="form-group">
+
+								<input id="sept" name="cc-exp" type="button" class="form-control boutton btn btn-outline-secondary" value="7">
+								<span class="help-block" data-valmsg-for="cc-exp" data-valmsg-replace="true">
+
+								</span>
+							</div>
+						</div>
+
+						<div class="col-2">
+							<div class="form-group">
+
+								<input id="huit" name="cc-exp" type="button" class="form-control boutton btn btn-outline-secondary" value="8">
+								<span class="help-block" data-valmsg-for="cc-exp" data-valmsg-replace="true">
+
+								</span>
+							</div>
+						</div>
+						<div class="col-2">
+
+							<div class="input-group">
+								<input id="neuf" name="x_card_code" type="button" class="form-control boutton btn btn-outline-secondary" value="9">
+
+							</div>
+						</div>
+						<div class="col-4">
+							<div class="input-group">
+								<button id="validation" name="validation" type="button" class="form-control btn btn-outline-success"> Validation <i class="fa fa-check"></i></button>
+							</div>
+						</div>
+					</div>
+
+
+					<div class="row">
+						<div class="col-2">
+							<div class="form-group">		
+								<input id="point" name="cc-exp" type="button" class="form-control boutton btn btn-outline-secondary" value=".">
+							</div>
+						</div>
+
+						<div class="col-2">
+							<div class="form-group">
+								<input id="zero" name="cc-exp" type="button" class="form-control boutton btn btn-outline-secondary" value="0">
+							</div>
+						</div>
+						<div class="col-2">
+							<div class="input-group">
+								<input id="zeros" name="x_card_code" type="button" class="form-control boutton btn btn-outline-secondary" value="00">
+							</div>
+						</div>
+					</div>
+
+
+				</div>
+			</div>
+		</div>
+	</form>
+	{% endblock content %}
+
+	{% block javaScript %}
+	<script type="text/javascript">
+		$(document).ready(function(){
+			setInterval(function() {
+				$('#clignot').fadeOut(100).fadeIn(100);
+			},1000);
+		});
+	</script>
+	{% endblock javaScript %}

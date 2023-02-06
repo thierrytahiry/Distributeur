@@ -1,0 +1,57 @@
+{% extends "Template/baseAdmin.html" %}
+{% block content %}
+<h3 class=""><i class="fa fa-sitemap"></i> Agence</h3>
+<hr class="my-4">
+<table class="table table-borderless">
+	{% if prenom == "admin" %}
+		<a href="{% url 'agence_insert' %}" class="btn btn-outline-secondary">
+			<i class="fa fa-plus"></i> Ajouter
+		</a>
+	{% endif %}
+
+	{% for agences in agence_list %}
+
+	{% if forloop.first %}
+	<div class="table-responsive m-b-40">
+		<table class="table table-borderless table-data3">
+			<thead>
+				<tr>
+					<th>Nom d'Agence</th>
+					<th>Lieu</th>
+					<th>direction</th>
+					<th>Code d'Agence</th>
+					<th>Numéro telephone</th>
+					{% if prenom == "admin" %}
+						<th>Action</th>
+					{% endif %}
+				</tr>
+			</thead>
+			{% endif %}
+			<tbody>
+				<tr>
+					<td>{{ agences.nom_Agence }}</td>
+					<td>{{ agences.lieu_Agence }}</td>
+					<td>{{ agences.direction }}</td>
+					<td>{{ agences.code_Agence }}</td>
+					<td>{{ agences.telephone_Agence }}</td>
+					{% if prenom == "admin" %}
+						<td>
+							<a href="{% url 'agence_update' agences.id %}" class="btn text-secondary px-0">
+								<i class="far fa-edit fa-lg"></i>
+							</a>
+							<form action="{% url 'agence_delete' agences.id %}" method="post" class="d-inline">
+								{% csrf_token %}
+								<button type="submit" class="btn btn">
+									<i class="fa fa-trash-alt text-danger"></i>
+								</button>
+							</form>
+						</td>
+					{% endif %}
+				</tr>
+				{% empty%}
+					<p>tableau vide</p>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+	{% endblock content %}

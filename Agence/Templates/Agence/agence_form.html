@@ -1,0 +1,44 @@
+{% extends "Template/baseAdmin.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<h3 class=""><i class="fa fa-sitemap"></i> Agence</h3>
+<hr class="my-4">	
+<div class="col-lg-12">
+	<div class="card">
+		<div class="card-header">
+			<a href="{% url 'agence_list' %}"><i class="fa fa-arrow-circle-left text-danger"></i></a>
+		</div>
+		<div class="card-body">
+			<form action="" method="post" autocomplete="off">
+				{% csrf_token %}
+				<div class="row">
+					<div class="col-md-6">
+						{{form.nom_Agence|as_crispy_field}}
+					</div>
+					<div class="col-md-6">
+						{{form.direction|as_crispy_field}}
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">	
+						{{form.lieu_Agence|as_crispy_field}}
+					</div>
+					<div class="col-md-6">	
+						{{form.code_Agence|as_crispy_field}}
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						{{form.telephone_Agence|as_crispy_field}}
+					</div>
+				</div>
+				<div class="form-actions form-group">
+					<button type="submit" class="btn btn-success btn-sm">Valider</button>
+					<button type="reset" class="btn btn-danger btn-sm">Annuler</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+{% endblock content %}

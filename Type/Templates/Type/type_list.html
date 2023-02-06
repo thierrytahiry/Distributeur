@@ -1,0 +1,59 @@
+{% extends "Template/baseAdmin.html" %}
+{% block content %}
+<h3 class=""><i class="fa fa-bars"></i> Type</h3>
+<hr class="my-4">
+<table class="table table-borderless">
+	{% if prenom == "admin" %}
+		<a href="{% url 'type_insert' %}" class="btn btn-outline-secondary">
+			<i class="fa fa-plus"></i> Ajouter
+		</a>
+	{% endif %}
+	{% for types in type_list %}
+
+	{% if forloop.first %}
+	<div class="table-responsive m-b-40">
+		<table class="table table-borderless table-data3 text-center">
+			<thead>
+				<tr>
+					<th>Libelle type</th>
+					<th>limite montant/Jour</th>
+					<th>limite retrait/Jour</th>
+					<th>limite montant/semaine</th>
+					<th>limite retrait/semaine</th>
+					{% if prenom == "admin" %}
+						<th>Action</th>
+					{% endif %}
+				</tr>
+			</thead>
+			{% endif %}
+			<tbody>
+
+				<tr>
+					<td>{{ types.libelle_Type }}</td>
+					<td>{{ types.limite_Montant_Jours }} Ar</td>
+					<td>{{ types.limite_Transaction_Jours }}</td>
+					<td>{{ types.limite_Montant_Semaine }} Ar</td>
+					<td>{{ types.limite_Transaction_Semaine }}</td>
+					
+					{% if prenom == "admin" %}
+						<td>
+							<a href="{% url 'type_update' types.id %}" class="btn text-secondary px-0">
+								<i class="far fa-edit fa-lg"></i>
+							</a>
+						
+							<form action="{% url 'type_delete' types.id %}" method="post" class="d-inline">
+								{% csrf_token %}
+								<button type="submit" class="btn btn">
+									<i class="fa fa-trash-alt text-danger"></i>
+								</button>
+							</form>
+						</td>
+					{% endif %}
+				</tr>
+				{% empty%}
+				<p>tableau vide</p>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+	{% endblock content %}

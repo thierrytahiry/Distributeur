@@ -1,0 +1,44 @@
+{% extends "Template/baseAdmin.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<h3 class=""><i class="fa fa-bars"></i> Type</h3>
+<hr class="my-4">
+<div class="col-lg-12">
+	<div class="card">
+		<div class="card-header">
+			<a href="{% url 'type_list' %}"><i class="fa fa-arrow-circle-left text-danger"></i></a>
+		</div>
+		<div class="card-body">
+			<form action="" method="post" autocomplete="off">
+				{% csrf_token %}
+				<div class="row">
+					<div class="col-md-6">
+						{{form.libelle_Type|as_crispy_field}}
+					</div>
+					<div class="col-md-6">
+						{{form.limite_Montant_Jours|as_crispy_field}}
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						{{form.limite_Montant_Semaine|as_crispy_field}}
+					</div>
+					<div class="col-md-6">
+						{{form.limite_Transaction_Jours|as_crispy_field}}
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						{{form.limite_Transaction_Semaine|as_crispy_field}}
+					</div>
+				</div>
+				<div class="form-actions form-group">
+					<button type="submit" class="btn btn-success btn-sm">Valider</button>
+					<button type="reset" class="btn btn-danger btn-sm">Annuler</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+{% endblock content %}

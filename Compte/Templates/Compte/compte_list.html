@@ -1,0 +1,57 @@
+{% extends "Template/baseAdmin.html" %}
+
+{% block content %}
+{% load l10n %}
+<h3 class=""><i class="fa fa-book"></i> Compte</h3>
+<hr class="my-4">
+<table class="table table-borderless">
+	{% if prenom == "admin" %}
+		<a href="{% url 'compte_insert' %}" class="btn btn-outline-secondary">
+			<i class="fa fa-plus"></i> Ajouter
+		</a>
+	{% endif %}
+	{% for comptes in compte_list %}
+
+	{% if forloop.first %}
+	<div class="table-responsive m-b-40">
+		<table class="table table-borderless table-data3">
+			<thead>
+				<tr>
+					<th>Numero Compte</th>
+					<th>Solde</th>
+					<th>Agence</th>
+					<th>Client</th>
+					{% if prenom == "admin" %}
+						<th>Action</th>
+					{% endif %}
+				</tr>
+			</thead>
+			{% endif %}
+			<tbody>
+
+				<tr>
+					<td>{{ comptes.numero_Compte }}</td>
+					<td>{{ comptes.solde|localize }} Ar</td>
+					<td>{{ comptes.id_Agence }}</td>
+					<td>{{ comptes.id_Client }}</td>
+					{% if prenom == "admin" %}
+						<td>
+							<a href="{% url 'compte_update' comptes.id %}" class="btn text-secondary px-0">
+								<i class="far fa-edit fa-lg"></i>
+							</a>
+							<form action="{% url 'compte_delete' comptes.id %}" method="post" class="d-inline">
+								{% csrf_token %}
+								<button type="submit" class="btn btn">
+									<i class="fa fa-trash-alt text-danger"></i>
+								</button>
+							</form>
+						</td>
+					{% endif %}
+				</tr>
+				{% empty%}
+				<p>tableau vide</p>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+	{% endblock content %}

@@ -1,0 +1,371 @@
+	
+{% extends "Template/base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block content %}
+	<div class="row">
+		<div class="col-lg-7">
+			<div class="card borderRed">
+				<div class="card-body">
+					<div class="card-title">
+						<img src="{% static 'styles/images/icon/CEM.jpg' %}" alt="CEM2" />
+						<hr>
+					</div>
+					<br>
+					<span style="margin-left: 53px;">{{ mess }} </span>
+					{% if soldeActuel %}
+						<span style="margin-left: 320px;">Vous voulez un ticket? tapez Reçus</span>
+					{% else %}
+						<span style="margin-left: 180px;">Vous voulez un ticket? tapez Reçus</span>
+					{% endif %}
+					{% csrf_token %}
+					<div class="row">
+						<div class="col-1">
+							<div class="row">
+								<div class="col-2">
+									<div class="form-group">
+										<button id="mont5" name="mont5" type="button" value="5000" class="btn btn-outline-secondary redB">
+											<i class="fa fa-chevron-right"></i>
+										</button>	
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-2">
+									<div class="form-group">
+										<button id="mont20" name="mont20" type="button" class="btn btn-outline-secondary redB" value="20000">
+											<i class="fa fa-chevron-right"></i>
+										</button>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-2">
+									<div class="form-group">			
+										<button id="mont50" name="mont50" type="button" class="btn btn-outline-secondary redB" value="50000">
+											<i class="fa fa-chevron-right"></i>
+										</button>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-2">
+									<div class="form-group">		
+										<button id="confirmer" name="confirmer" type="button" class="btn btn-outline-secondary redB">
+											<i class="fa fa-chevron-right"></i>
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-10">
+							<div class="row">
+								<div class="col-lg-9 print" style="border-style: dashed;">
+									{% if nb20Sortie != 0 or nb10Sortie != 0 or nb5Sortie != 0 %}
+									<table class="table table-top-campaign">					
+										<tbody>
+											<tr>
+												<td>Nombre</td>
+												<td>Billet</td>
+												<td>Total</td>
+											</tr>
+											{% if nb20Sortie != 0 %}
+											<tr>
+												<td>{{ nb20Sortie }}</td>
+												<td>20 000 Ar</td>
+												<td>{{ ttl20 }} Ar</td>
+											</tr>
+											{% endif %}
+
+											{% if nb10Sortie != 0 %}
+											<tr>
+												
+												<td>{{ nb10Sortie }}</td>
+												<td>10 000 Ar</td>
+												<td>{{ ttl10 }} Ar</td>
+											</tr>
+											{% endif %}
+
+											{% if nb5Sortie != 0 %}
+											<tr>
+												<td>{{ nb5Sortie }}</td>
+												<td>5 000 Ar</td>
+												<td>{{ ttl5 }} Ar</td>
+											</tr>
+											{% endif %}
+
+										</tbody>
+									</table>
+									<small><span style="color: blue;"> Totaux : {{ ttls }} Ar ;</span> 
+									<span>et votre solde actuel est : {{ Solde }} Ar </span></small>
+									{% endif %}
+
+									{% if soldeActuel %}
+
+										<center>
+											<p>Ticket{{ idMax.id__max }}</p>
+											<p>Distributeur n° {{ numDab }} à 
+												{{ lieuDab }} <br> 
+												{{transactionType}} par {{ clientCompte }} le {{ dateNow }} 
+												<br> Carte n ° {{ numcarte }}, Compte n° {{ NumCompte }}</p>
+											<p style="color: blue;">Votre solde actuel est : <br> {{ soldeActuel }} Ar </p>
+										</center>
+
+									{% endif %}
+								</div>
+								<div class="col-md-3">
+									<div class="form-group">		
+										<center>
+											<p class="form-control redP">TERMINER</p>
+										</center>
+									</div>
+
+								</div>
+
+							</div>						
+						</div>
+
+						<div class="col-1">
+							<div class="row">
+								<div class="col-2">
+									<div class="form-group">
+
+										<form method="post" action="/Ticket/">
+											{% csrf_token %}										
+										
+											<input type="hidden" name="numero_Ticket" value="Ticket{{ idMax.id__max }}">
+
+											<input type="hidden" name="id_Transaction" value="{{ idMax.id__max }}">
+
+											<input type="hidden" name="id_Dab" value="{{ dabid }}">
+													
+											<input type="hidden" name="id_Carte" value="{{ carteId }}">
+												
+												<button type="submit" class="btn btn-outline-secondary redB">
+													<i class="fa fa-chevron-left"></i>
+												</button>
+										</form>
+										
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-2">
+									<div class="form-group">
+										
+											<button type="button" class="btn btn-outline-secondary redB">
+												<i class="fa fa-chevron-left"></i>
+											</button>
+										
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-2">
+									<div class="form-group">			
+										<button type="button" class="btn btn-outline-secondary redB">
+											<i class="fa fa-chevron-left"></i>
+										</button>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-2">
+									<div class="form-group">		
+										<button type="button" class="btn btn-outline-secondary redB">
+											<i class="fa fa-chevron-left"></i>
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-5">
+			<div class="card borderRed">
+				<div class="card-body">
+					<div class="card-title">
+						<img src="{% static 'styles/images/icon/recus.jpg' %}" alt="CEM2" />
+					</div>
+					<hr style="height: 15px;">
+
+					<div class="row">
+						<div class="col-4">
+							
+									
+								<div class="form-group">
+									<button id="print" name="x_card_code" type="button" class="form-control btn btn-outline-secondary" value="Reçus">&nbsp;Reçus &nbsp; <i class="fa fa-files-o"></i> &nbsp; &nbsp; &nbsp;</button>
+								</div>
+							
+								
+						</div>
+
+						<div class="col-4">
+							<div class="form-group">
+								<button id="billet" name="x_card_code" type="button" class="form-control btn btn-outline-secondary" value="Billets">&nbsp;Billets &nbsp; <i class="fa fa-usd"></i> &nbsp; &nbsp; &nbsp;</button>
+							</div>
+						</div>
+						<div class="col-4">
+							<div class="input-group">
+								<button id="carte" name="x_card_code" type="button" class="form-control btn btn-outline-secondary" value="Carte">&nbsp;Carte &nbsp;<i class="fa fa-credit-card"></i>&nbsp; &nbsp; &nbsp;</button>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-2">
+							<div class="form-group">
+								<input id="un" name="cc-exp" type="button" class="form-control boutton btn btn-outline-secondary" value="1">
+							</div>
+						</div>
+
+						<div class="col-2">
+							<div class="form-group">	
+								<input id="deux" name="cc-exp" type="button" class="form-control boutton btn btn-outline-secondary" value="2">
+							</div>
+						</div>
+						<div class="col-2">	
+							<div class="input-group">
+								<input id="trois" name="x_card_code" type="button" class="form-control boutton btn btn-outline-secondary" value="3">
+							</div>
+						</div>
+						<div class="col-4">
+							<div class="input-group">
+									<button type="button" id="annulation" class="form-control btn btn-outline-danger">
+										Annulation <i class="fa fa-times"></i>
+									</button>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-2">
+							<div class="form-group">	
+								<input id="quatre" name="cc-exp" type="button" class="form-control boutton btn btn-outline-secondary" value="4">
+							</div>
+						</div>
+
+						<div class="col-2">
+							<div class="form-group">
+								<input id="cinq" name="cc-exp" type="button" class="form-control boutton btn btn-outline-secondary" value="5">
+							</div>
+						</div>
+						<div class="col-2">
+
+							<div class="input-group">
+								<input id="six" name="x_card_code" type="button" class="form-control boutton btn btn-outline-secondary" value="6">
+
+							</div>
+						</div>
+						<div class="col-4">
+							<div class="input-group">
+								<button id="correction" name="correction" type="button" class="form-control btn btn-outline-warning">Correction  <i class="fa fa-eraser"></i></button>
+
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-2">
+							<div class="form-group">
+
+								<input id="sept" name="cc-exp" type="button" class="form-control boutton btn btn-outline-secondary" value="7">
+								<span class="help-block" data-valmsg-for="cc-exp" data-valmsg-replace="true">
+
+								</span>
+							</div>
+						</div>
+
+						<div class="col-2">
+							<div class="form-group">
+
+								<input id="huit" name="cc-exp" type="button" class="form-control boutton btn btn-outline-secondary" value="8">
+								<span class="help-block" data-valmsg-for="cc-exp" data-valmsg-replace="true">
+
+								</span>
+							</div>
+						</div>
+						<div class="col-2">
+
+							<div class="input-group">
+								<input id="neuf" name="x_card_code" type="button" class="form-control boutton btn btn-outline-secondary" value="9">
+
+							</div>
+						</div>
+						<div class="col-4">
+							<div class="input-group">
+								<button id="validation" name="validation" type="button" class="form-control btn btn-outline-success"> Validation <i class="fa fa-check"></i></button>
+							</div>
+						</div>
+					</div>
+
+
+					<div class="row">
+						<div class="col-2">
+							<div class="form-group">		
+								<input id="point" name="cc-exp" type="button" class="form-control boutton btn btn-outline-secondary" value=".">
+							</div>
+						</div>
+
+						<div class="col-2">
+							<div class="form-group">
+								<input id="zero" name="cc-exp" type="button" class="form-control boutton btn btn-outline-secondary" value="0">
+							</div>
+						</div>
+						<div class="col-2">
+							<div class="input-group">
+								<input id="zeros" name="x_card_code" type="button" class="form-control boutton btn btn-outline-secondary" value="00">
+							</div>
+						</div>
+					</div>
+
+
+				</div>
+			</div>
+		</div>
+	<br>
+	{% endblock content %}
+
+	{% block javaScript %}
+	<script type="text/javascript">
+
+        // alert($(".transid").val());
+         //    var IDtrans = $(".transid").val();
+         //    $("#id_Transaction").val(IDtrans);
+         //    $("#numero_Ticket").val("Ticket"+IDtrans);
+
+		$("#print").click(function(){
+			$('.print').printThis({
+					debug: false,               // show the iframe for debugging
+			        importCSS: true,            // import parent page css
+			        importStyle: false,         // import style tags
+			        printContainer: true,       // print outer container/$.selector
+			        loadCSS: null, // path to additional css file - use an array [] for multiple
+			        pageTitle: "Ticket{{ idMax.id__max }}",              // add title to print page
+			        removeInline: false,        // remove inline styles from print elements
+			        removeInlineSelector: "*",  // custom selectors to filter inline styles. removeInline must be true
+			        printDelay: 333,            // variable print delay
+			        header: "<center><img src=\"{% static 'styles/images/icon/images.png' %}\" alt=\"CEM2\" /></center>{% if not soldeActuel %}<center><p>Ticket{{ idMax.id__max }}</p><p>Distributeur n° {{ numDab }} à {{ lieuDab }} <br> {{transactionType}} par {{ clientCompte }} le {{ dateNow }} <br> Carte n ° {{ numcarte }}, Compte n° {{ NumCompte }}</p></center>{% endif %}",// prefix to html
+			        footer: null,               // postfix to html
+			        base: false,                // preserve the BASE tag or accept a string for the URL
+			        formValues: true,           // preserve input/form values
+			        canvas: false,              // copy canvas content
+			        doctypeString: '<!DOCTYPE html>', // enter a different doctype for older markup
+			        removeScripts: false,       // remove script tags from print content
+			        copyTagClasses: false,      // copy classes from the html & body tag
+			        beforePrintEvent: null,     // callback function for printEvent in iframe
+			        beforePrint: null,          // function called before iframe is filled
+			        afterPrint: null            // function called before iframe is removed
+			    });
+		});
+		$(document).ready(function(){
+			setInterval(function() {
+				$('#print').fadeOut(100).fadeIn(100);
+			},500);
+		});
+	</script>
+	{% endblock javaScript %}

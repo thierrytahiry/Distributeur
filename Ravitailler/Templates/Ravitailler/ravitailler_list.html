@@ -1,0 +1,59 @@
+{% extends "Template/baseAdmin.html" %}
+{% block content %}
+<h3 class=""><i class="fa fa-plus"></i> Ravitailler historique</h3>
+<hr class="my-4">
+<table class="table table-borderless">
+	{% if prenom == "admin" %}
+		<a href="{% url 'dab_list' %}" class="btn btn-outline-danger">
+			<i class="fa fa-arrow-circle-left"></i>
+		</a>
+	{% endif %}
+	{% for ravitailles in ravitailler_list %}
+
+	{% if forloop.first %}
+	<div class="table-responsive m-b-40">
+		<table class="table table-borderless table-data3">
+			<thead>
+				<tr>
+					<th>Date</th>
+					<th>Nb 20.000Ar</th>
+					<th>Nb 10.000Ar</th>
+					<th>Nb 5.000Ar</th>
+					<th>Dab</th>
+					<th>Operateur</th>
+					{% if prenom == "admin" %}
+						<th>Action</th>
+					{% endif %}
+				</tr>
+			</thead>
+			{% endif %}
+			<tbody>
+
+				<tr>
+					<td>{{ ravitailles.date_Ravitailler }}</td>
+					<td>{{ ravitailles.nombre_20000_Inserer }}</td>
+					<td>{{ ravitailles.nombre_10000_Inserer }}</td>
+					<td>{{ ravitailles.nombre_5000_Inserer }}</td>
+					<td>{{ ravitailles.id_Dab }}</td>
+					<td>{{ ravitailles.id_Operateur }}</td>
+					{% if prenom == "admin" %}
+						<td>
+							<!-- <a href="{% url 'ravitailler_update' ravitailles.id %}" class="btn text-secondary px-0">
+								<i class="far fa-edit fa-lg"></i>
+							</a> -->
+							<form action="{% url 'ravitailler_delete' ravitailles.id %}" method="post" class="d-inline">
+								{% csrf_token %}
+								<button type="submit" class="btn btn">
+									<i class="fa fa-trash-alt text-danger"></i>
+								</button>
+							</form>
+						</td>
+					{% endif %}
+				</tr>
+				{% empty%}
+				<p>tableau vide</p>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+	{% endblock content %}

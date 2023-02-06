@@ -1,0 +1,57 @@
+{% extends "Template/baseAdmin.html" %}
+
+{% block content %}
+
+<h3 class=""><i class="fa fa-outdent"></i> Transaction historique</h3>
+<hr class="my-4">
+<table class="table table-borderless">
+		<!-- <a href="{% url 'transaction_insert' %}" class="btn btn-outline-success">
+						<i class="fa fa-plus"></i> Ajouter
+					</a> -->
+					{% for transactions in transaction_list %}
+
+					{% if forloop.first %}
+					<div class="table-responsive m-b-40">
+						<table class="table table-borderless table-data3">
+							<thead>
+								<tr>
+									<th>Montant </th>
+									<th>Type </th>
+									<th>Date</th>
+									<th>Numero carte</th>
+									<th>Distributeur</th>
+									{% if prenom == "admin" %}
+										<th>Action</th>
+									{% endif %}
+								</tr>
+							</thead>
+							{% endif %}
+							<tbody>
+
+								<tr>
+									<td>{{ transactions.montant_Transaction }} Ar</td>
+									<td>{{ transactions.type_Transaction }}</td>
+									<td>{{ transactions.date_Transaction }}</td>
+									<td>{{ transactions.id_Carte }}</td>
+									<td>{{ transactions.id_Dab }}</td>
+									{% if prenom == "admin" %}
+										<td>
+											<a href="{% url 'transaction_update' transactions.id %}" class="btn text-secondary px-0">
+												<i class="far fa-edit fa-lg"></i>
+											</a>
+											<form action="{% url 'transaction_delete' transactions.id %}" method="post" class="d-inline">
+												{% csrf_token %}
+												<button type="submit" class="btn btn">
+													<i class="fa fa-trash-alt text-danger"></i>
+												</button>
+											</form>
+										</td>
+									{% endif %}
+								</tr>
+								{% empty%}
+								<p>tableau vide</p>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+					{% endblock content %}

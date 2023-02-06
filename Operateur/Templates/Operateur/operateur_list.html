@@ -1,0 +1,63 @@
+{% extends "Template/baseAdmin.html" %}
+
+{% block content %}
+<h3 class=""><i class="fa fa-user"></i> Operateur</h3>
+<hr class="my-4">
+<table class="table table-borderless">
+	{% if prenom == "admin" %}
+		<a href="{% url 'operateur_insert' %}" class="btn btn-outline-secondary">
+			<i class="fa fa-plus"></i> Ajouter
+		</a>
+	{% endif %}
+	
+	<div class="table-responsive m-b-40">
+		<table class="table table-borderless table-data3">
+		{% for operateurs in operateur_list %}
+
+			{% if forloop.first %}
+			<thead>
+				<tr>
+					<th>Nom</th>
+					<th>Prenom</th>
+					<th>Téléphone</th>
+					<th>Email</th>
+					<th>Pseudo</th>
+					<th>Password</th>
+					<th>Naissance</th>
+					{% if prenom == "admin" %}
+						<th>Action</th>
+					{% endif %}
+				</tr>
+			</thead>
+			{% endif %}
+			<tbody>
+
+				<tr>
+					<td>{{ operateurs.nom_Operateur }}</td>
+					<td>{{ operateurs.prenom_Operateur }}</td>
+					<td>{{ operateurs.telephone_Operateur }}</td>
+					<td>{{ operateurs.email_Operateur }}</td>
+					<td>{{ operateurs.username }}</td>
+					<td>{{ operateurs.password }}</td>
+					<td>{{ operateurs.date_Naissance_Operateur }}</td>
+					{% if prenom == "admin" %}
+						<td>
+							<a href="{% url 'operateur_update' operateurs.id %}" class="btn text-secondary px-0">
+								<i class="far fa-edit fa-lg"></i>
+							</a>
+							<form action="{% url 'operateur_delete' operateurs.id %}" method="post" class="d-inline">
+								{% csrf_token %}
+								<button type="submit" class="btn btn">
+									<i class="fa fa-trash-alt text-danger"></i>
+								</button>
+							</form>
+						</td>
+					{% endif %}
+				</tr>
+				{% empty%}
+				<p>tableau vide</p>
+			</tbody>
+		{% endfor %}
+		</table>
+	</div>
+	{% endblock content %}

@@ -1,0 +1,274 @@
+	
+{% extends "Template/base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block content %}
+<form action="/Transaction/" method="post">
+	<div class="row">
+		<div class="col-lg-7">
+			<div class="card borderRed">
+				<div class="card-body">
+					<div class="card-title">
+						<img src="{% static 'styles/images/icon/CEM.jpg' %}" alt="CEM2" />
+						<hr>
+					</div>
+					<br>
+					<br>
+					{% csrf_token %}
+
+					<input type="hidden" name="id_Carte" id="id_Carte" value="{{ idCarte }}">
+					<input type="hidden" name="montant_Transaction" id="montant_Transaction" value="0">
+					<input type="hidden" name="type_Transaction" id="type_Transaction" value="Consulté le solde">
+					<input type="hidden" name="id_Dab" id="id_Dab" value="{{ idDab }}">
+					<div class="row">
+						<div class="col-1">
+							<div class="row">
+								<div class="col-2">
+									<div class="form-group">
+										<button id="mont5" name="mont5" type="button" value="5000" class="btn btn-outline-secondary redB">
+											<i class="fa fa-chevron-right"></i>
+										</button>	
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-2">
+									<div class="form-group">
+										<button id="mont20" name="mont20" type="button" class="btn btn-outline-secondary redB" value="20000">
+											<i class="fa fa-chevron-right"></i>
+										</button>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-2">
+									<div class="form-group">			
+										<button id="mont50" name="mont50" type="button" class="btn btn-outline-secondary redB" value="50000">
+											<i class="fa fa-chevron-right"></i>
+										</button>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-2">
+									<div class="form-group">		
+										<button id="mont100" name="mont100" type="button" class="btn btn-outline-secondary redB" value="100000">
+											<i class="fa fa-chevron-right"></i>
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-10">
+							<center>
+								<p>Date de transaction {{ date }}</p>
+								<p>Carte N° {{ carteNUM }}</p>
+								<p>Compte N° {{ numCompte }}</p>								
+								<p style="color: blue;">Votre solde actuel est : <br>{{ soldeCompte }} Ar </p>
+							</center>
+							<div class="col-md-5 ml-auto" style="margin-top: 34px;">
+								<div class="form-group">
+								<center><p class="form-control cc-exp redP">Fin</p></center>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-1">
+							<div class="row">
+								<div class="col-2">
+									<div class="form-group">	
+										<button id="cc-exp" name="cc-exp" type="button" class="btn btn-outline-secondary redB" value="10000">
+											<i class="fa fa-chevron-left"></i>
+										</button>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-2">
+									<div class="form-group">
+										<button id="cc-exp" name="cc-exp" type="button" class="btn btn-outline-secondary redB" value="30000">
+											<i class="fa fa-chevron-left"></i>
+										</button>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-2">
+									<div class="form-group">
+									<a href="{% url 'autre_montant' %}"><button id="cc-exp" name="cc-exp" type="button" class="btn btn-outline-secondary redB" value=""><i class="fa fa-chevron-left"></i></button></a>			
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-2">
+									<div class="form-group">		
+										<a href=""><button id="cc-exp" name="cc-exp" type="submit" class="btn btn-outline-secondary redB" value="">
+											<i class="fa fa-chevron-left"></i>
+										</button></a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-5">
+			<div class="card borderRed">
+				<div class="card-body">
+					<div class="card-title">
+						<img src="{% static 'styles/images/icon/Solde.jpg' %}" alt="CEM2" />
+					</div>
+					<hr style="height: 15px;">
+
+					<div class="row">
+						<div class="col-4">
+							<div class="form-group">
+								<button id="recus" name="x_card_code" type="button" class="form-control btn btn-outline-secondary" value="Reçus">&nbsp;Reçus &nbsp; <i class="fa fa-files-o"></i> &nbsp; &nbsp; &nbsp;</button>
+							</div>
+						</div>
+
+						<div class="col-4">
+							<div class="form-group">
+								<button id="billet" name="x_card_code" type="button" class="form-control btn btn-outline-secondary" value="Billets">&nbsp;Billets &nbsp; <i class="fa fa-usd"></i> &nbsp; &nbsp; &nbsp;</button>
+							</div>
+						</div>
+						<div class="col-4">
+							<div class="input-group">
+								<button id="carte" name="x_card_code" type="button" class="form-control btn btn-outline-secondary" value="Carte">&nbsp;Carte &nbsp;<i class="fa fa-credit-card"></i>&nbsp; &nbsp; &nbsp;</button>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-2">
+							<div class="form-group">
+								<input id="un" name="cc-exp" type="button" class="form-control boutton btn btn-outline-secondary" value="1">
+							</div>
+						</div>
+
+						<div class="col-2">
+							<div class="form-group">	
+								<input id="deux" name="cc-exp" type="button" class="form-control boutton btn btn-outline-secondary" value="2">
+							</div>
+						</div>
+						<div class="col-2">	
+							<div class="input-group">
+								<input id="trois" name="x_card_code" type="button" class="form-control boutton btn btn-outline-secondary" value="3">
+							</div>
+						</div>
+						<div class="col-4">
+							<div class="input-group">
+								<button type="button" id="annulation" class="form-control btn btn-outline-danger">
+                                	Annulation <i class="fa fa-times"></i>
+               					</button>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-2">
+							<div class="form-group">	
+								<input id="quatre" name="cc-exp" type="button" class="form-control boutton btn btn-outline-secondary" value="4">
+							</div>
+						</div>
+
+						<div class="col-2">
+							<div class="form-group">
+								<input id="cinq" name="cc-exp" type="button" class="form-control boutton btn btn-outline-secondary" value="5">
+							</div>
+						</div>
+						<div class="col-2">
+
+							<div class="input-group">
+								<input id="six" name="x_card_code" type="button" class="form-control boutton btn btn-outline-secondary" value="6">
+
+							</div>
+						</div>
+						<div class="col-4">
+							<div class="input-group">
+								<button id="correction" name="correction" type="button" class="form-control btn btn-outline-warning">Correction  <i class="fa fa-eraser"></i></button>
+
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-2">
+							<div class="form-group">
+
+								<input id="sept" name="cc-exp" type="button" class="form-control boutton btn btn-outline-secondary" value="7">
+								<span class="help-block" data-valmsg-for="cc-exp" data-valmsg-replace="true">
+
+								</span>
+							</div>
+						</div>
+
+						<div class="col-2">
+							<div class="form-group">
+
+								<input id="huit" name="cc-exp" type="button" class="form-control boutton btn btn-outline-secondary" value="8">
+								<span class="help-block" data-valmsg-for="cc-exp" data-valmsg-replace="true">
+
+								</span>
+							</div>
+						</div>
+						<div class="col-2">
+
+							<div class="input-group">
+								<input id="neuf" name="x_card_code" type="button" class="form-control boutton btn btn-outline-secondary" value="9">
+
+							</div>
+						</div>
+						<div class="col-4">
+							<div class="input-group">
+								<button id="validation" name="validation" type="button" class="form-control btn btn-outline-success"> Validation <i class="fa fa-check"></i></button>
+							</div>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-2">
+							<div class="form-group">		
+								<input id="point" name="cc-exp" type="button" class="form-control boutton btn btn-outline-secondary" value=".">
+							</div>
+						</div>
+
+						<div class="col-2">
+							<div class="form-group">
+								<input id="zero" name="cc-exp" type="button" class="form-control boutton btn btn-outline-secondary" value="0">
+							</div>
+						</div>
+						<div class="col-2">
+							<div class="input-group">
+								<input id="zeros" name="x_card_code" type="button" class="form-control boutton btn btn-outline-secondary" value="00">
+							</div>
+						</div>
+					</div>
+
+
+				</div>
+			</div>
+		</div>
+	</form>
+	{% endblock content %}
+
+	{% block javaScript %}
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$("#confirmer").click(function(){
+				var nb5 = $("#nb5").val();
+				var nb10 = $("#nb10").val();
+				var nb20 = $("#nb20").val();
+				var montant5 = nb5 * 5000;
+				var montant10 = nb10 * 10000;
+				var montant20 = nb20 * 20000;
+				montant  = montant5 + montant10 + montant20;
+				$("#montant_Transaction").val(montant);
+			});
+		});
+	</script>
+	{% endblock javaScript %}

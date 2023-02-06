@@ -1,0 +1,84 @@
+{% extends "Template/baseAdmin.html" %}
+{% block javaScript %}
+	<script type="text/javascript">
+		$(document).ready(function(){
+			var ctx = document.getElementById('myChart').getContext('2d');
+			var myChart = new Chart(ctx, {
+				type: 'pie',
+				data: {
+					labels: ['{{type1}}', '{{type2}}'],
+					datasets: [{
+						label: 'Transaction',
+						data: [{{retrait}}, {{depot}}],
+						backgroundColor: [
+							'rgba(255, 0, 10, 0.8)',
+							'rgba(105, 105, 105, 0.6)'
+						],
+						borderColor: [
+							'rgba(105, 105, 105, 0.6)',
+							'rgba(255, 0, 0,1)'
+						],
+						borderWidth: 1,
+					},]
+				},
+		});
+
+		var ctx2 = document.getElementById('myChart2').getContext('2d');
+			var myChart2 = new Chart(ctx2, {
+				type: 'bar',
+				data: {
+					labels: ['{{type1}}', '{{type2}}'],
+					datasets: [{
+						label: 'Transaction',
+						data: [{{retraitMois}}, {{depotMois}}],
+						backgroundColor: [
+							'rgba(255, 0, 10, 0.8)',
+							'rgba(105, 105, 105, 0.6)'
+						],
+						borderColor: [
+							'rgba(105, 105, 105, 0.6)',
+							'rgba(255, 0, 0, 1)'
+						],
+						borderWidth: 1,
+					}]
+				},
+				options: {
+					scales: {
+						yAxes: [{
+							ticks: {
+								beginAtZero: true
+							} 
+						}]
+					}
+				}
+			});
+		});
+	</script>
+
+{% endblock javaScript %}
+
+{% block content %}
+	<h3 class=""><i class="fa fa-bar-chart-o"></i> Statistique</h3>
+	<hr class="my-4">
+	<!-- <div><canvas id="myChart" width="400" height="100"></canvas></div> -->
+	<div class="row">
+		<div class="col-lg-6">
+			<div class="au-card m-b-30">
+				<div class="au-card-inner">
+					<h6>Effectif de retrait et dépôt dans une journée || {{ dateNow }}</h6>
+					<hr>
+					<canvas id="myChart" width="400" height="300"></canvas>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-6">
+			<div class="au-card m-b-30">
+				<div class="au-card-inner">
+					<h6>Effectif de retrait et dépôt dans un mois || {{ M_Now }}</h6>
+					<hr>
+					<canvas id="myChart2" width="400" height="300"></canvas>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock content %}

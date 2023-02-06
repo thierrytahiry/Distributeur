@@ -1,0 +1,47 @@
+{% extends "Template/baseAdmin.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<h3 class=""><i class="fa fa-usd"></i> Distributeur</h3>
+<hr class="my-4">
+<div class="col-lg-12">
+	<div class="card">
+		<div class="card-header">
+			<a href="{% url 'dab_list' %}"><i class="fa fa-arrow-circle-left text-danger"></i></a>
+		</div>
+		<div class="card-body">
+			<form action="" method="post" autocomplete="off">
+				{% csrf_token %}
+				<div class="row">	
+					<div class="col-md-6">
+						{{form.numero_Dab|as_crispy_field}}
+					</div>
+					<div class="col-md-6">
+						{{form.lieu|as_crispy_field}}
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						{{form.nombre_Billet_20000|as_crispy_field}}
+					</div>
+					<div class="col-md-6">
+						{{form.nombre_Billet_10000|as_crispy_field}}
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						{{form.nombre_Billet_5000|as_crispy_field}}
+					</div>
+					<div class="col-md-6">
+						{{form.id_Agence|as_crispy_field}}
+					</div>
+				</div>
+				<div class="form-actions form-group">
+					<button type="submit" class="btn btn-success btn-sm">Valider</button>
+					<button type="reset" class="btn btn-danger btn-sm">Annuler</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+{% endblock content %}

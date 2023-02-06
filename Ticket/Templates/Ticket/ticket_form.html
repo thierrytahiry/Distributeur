@@ -1,0 +1,39 @@
+{% extends "Template/baseAdmin.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<h3 class=""><i class="fa fa-tag"></i> Ticket</h3>
+<hr class="my-4">
+<div class="col-lg-12">
+	<div class="card">
+		<div class="card-header">
+			<a href="{% url 'ticket_list' %}"><i class="fa fa-arrow-circle-left text-danger"></i></a>
+		</div>
+		<div class="card-body">
+			<form action="" method="post" autocomplete="off">
+				{% csrf_token %}
+				<div class="row">	
+					<div class="col-md-6">
+						{{form.numero_Ticket|as_crispy_field}}
+					</div>
+					<div class="col-md-6">
+						{{form.id_Transaction|as_crispy_field}}
+					</div>
+				</div>
+				<div class="row">	
+					<div class="col-md-6">
+						{{form.id_Dab|as_crispy_field}}
+					</div>
+					<div class="col-md-6">
+						{{form.id_Carte|as_crispy_field}}
+					</div>
+				</div>
+				<div class="form-actions form-group">
+					<button type="submit" class="btn btn-success btn-sm">Valider</button>
+					<button type="reset" class="btn btn-danger btn-sm">Annuler</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+{% endblock content %}

@@ -1,0 +1,58 @@
+{% extends "Template/baseAdmin.html" %}
+
+{% block content %}
+<h3 class=""><i class="fa fa-credit-card"></i> Carte</h3>
+<hr class="my-4">
+<table class="table table-borderless">
+	{% if prenom == "admin" %}
+		<a href="{% url 'carte_insert' %}" class="btn btn-outline-secondary">
+			<i class="fa fa-plus"></i> Ajouter
+		</a>
+	{% endif %}
+	{% for cartes in carte_list %}
+
+	{% if forloop.first %}
+	<div class="table-responsive m-b-40">
+		<table class="table table-borderless table-data3">
+			<thead>
+				<tr>
+					<th>Numéro de carte</th>
+					<th>NIP</th>
+					<th>Compte</th>
+					<th>Etat</th>
+					<th>Type</th>
+					{% if prenom == "admin" %}
+						<th>Action</th>
+					{% endif %}
+				</tr>
+			</thead>
+			{% endif %}
+			<tbody>
+				
+				<tr>
+					<td>{{ cartes.numero_Carte }}</td>
+					<td>{{ cartes.code_Nip }}</td>
+					<td>{{ cartes.id_Compte }}</td>
+					<td>{{ cartes.etat_Carte }}</td>
+					<td>{{ cartes.id_Type }}</td>
+					{% if prenom == "admin" %}
+						<td>
+							<a href="{% url 'carte_update' cartes.id %}" class="btn text-secondary px-0">
+								<i class="far fa-edit fa-lg"></i>
+							</a>
+							<form action="{% url 'carte_delete' cartes.id %}" method="post" class="d-inline">
+								{% csrf_token %}
+								<button type="submit" class="btn btn">
+									<i class="fa fa-trash-alt text-danger"></i>
+								</button>
+							</form>
+						</td>
+					{% endif %}
+				</tr>
+				{% empty%}
+				<p>tableau vide</p>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+	{% endblock content %}

@@ -1,0 +1,47 @@
+{% extends "Template/baseAdmin.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<h3 class=""><i class="fa fa-plus"></i> Ravitailler</h3>
+<hr class="my-4">
+<div class="col-lg-12">
+	<div class="card">
+		<div class="card-header">
+			<a href="{% url 'dab_list' %}"><i class="fa fa-arrow-circle-left text-danger"></i></a>
+		</div>
+		<div class="card-body">
+			<form action="/Ravitailler/" method="post" autocomplete="off">
+				{% csrf_token %}
+				<center>
+					<p class="">Operateur : {{ prenom }}</p>
+					<p class="">Distributeur N° : {{ dabNum }}</p>
+				</center>
+				<input type="hidden" name="id_Dab" value="{{ dabId }}">
+				<input type="hidden" name="id_Operateur" value="{{ operateurId }}">
+				<hr>
+				<div class="row">
+					<div class="col-md-6">
+						<label>Nombre 20 000Ar</label>
+						<input class="form-control" type="number" name="nombre_20000_Inserer" value="0">
+					</div>
+					<div class="col-md-6">
+						<label>Nombre 10 000Ar</label>
+						<input class="form-control" type="number" name="nombre_10000_Inserer" value="0">
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<label>Nombre 5 000Ar</label>
+						<input class="form-control" type="number" name="nombre_5000_Inserer" value="0">
+					</div>
+				</div>
+				<br>
+				<div class="form-actions form-group">
+					<button type="submit" class="btn btn-success btn-sm">Valider</button>
+					<button type="reset" class="btn btn-danger btn-sm">Annuler</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+{% endblock content %}
